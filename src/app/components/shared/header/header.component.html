@@ -1,0 +1,43 @@
+<div class="header">
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="2">
+      <img src="../../../../assets/img/logo.png" class="img-responsive" id="logo" > 
+    </ion-col>
+    <ion-col size="1">
+      <p class="titulo-header">9,500 USD</p>
+      <p class="description-header">Last trade price</p>
+    </ion-col>
+    <ion-col size="1">
+      <p class="titulo-header">+5.26%</p>
+      <p class="description-header">24 hour price</p>
+    </ion-col>
+    <ion-col size="1">
+      <p class="titulo-header">12.820 BTC</p>
+      <p class="description-header">Last trade price</p>
+    </ion-col>
+    <ion-col size="1">
+      <p class="titulo-header">2,231,775</p>
+      <p class="description-header">active traders</p>
+    </ion-col>
+    <ion-col size="1">
+      <p class="titulo-header">12.820 BTC</p>
+      <p class="description-header">Last trade price</p>
+    </ion-col>
+    <ion-col size="1"></ion-col>
+    <ion-col *ngIf="isAuthenticated" size="1" class="button-header">
+      <ion-button expand="full" fill="outline" (click)="logout()">
+        Logout
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="!isAuthenticated" size="1" class="button-header">
+      <ion-button expand="full" fill="outline" href="/auth/login">
+        Sign in
+      </ion-button>
+    </ion-col>
+    <ion-col *ngIf="!isAuthenticated" size="1" class="button-header">
+      <ion-button expand="full" href="/auth/register">
+        Register
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</div>

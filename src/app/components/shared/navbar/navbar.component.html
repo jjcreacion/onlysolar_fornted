@@ -1,0 +1,19 @@
+<div class="navbar">
+  <ion-row class="ion-justify-content-center">
+    <ion-col class="ion-align-self-center" size="1">
+      <a href="#" class="item-navbar">home</a>
+    </ion-col>
+    <ion-col class="ion-align-self-center" size="1">
+      <a href="#" class="item-navbar">about us</a>
+    </ion-col>
+    <ion-col class="ion-align-self-center" size="1">
+      <a href="#" class="item-navbar">contact</a>
+    </ion-col>
+    <ion-col *ngIf="!isAuthenticated" class="ion-align-self-center" size="1">
+      <a href="auth/login" class="item-navbar">Login</a>
+    </ion-col>
+    <ion-col *ngIf="isAuthenticated" class="ion-align-self-center" size="1">
+      <a href="dashboard" class="item-navbar">Dashboard</a>
+    </ion-col>
+  </ion-row>
+</div>

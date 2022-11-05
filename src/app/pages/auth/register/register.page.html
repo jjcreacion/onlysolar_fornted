@@ -1,0 +1,550 @@
+<ion-content [fullscreen]="true">
+  <app-header></app-header>
+  <app-navbar></app-navbar>
+  <ion-grid class="ion-no-margin ion-no-padding">
+    <ion-row class="ion-no-margin ion-no-padding">
+      <ion-col class="ion-align-self-center" size="12" size-md="6" size-lg="12">
+        <ion-grid fixed>
+          <ion-row class="ion-justify-content-center">
+            <ion-col class="ion-align-self-center ion-text-center" size="12" size-md="6" size-lg="12">
+              <h1 id="title">GET <span class="enfasis">STARTED</span></h1>
+              <h3 id="description">OPEN ACCOUNT FOR FREE AND START GAIN MONEY NOW!</h3>
+              <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
+                <ion-row *ngIf="this.referred">
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Referred code</ion-label>
+                      <ion-input readonly formControlName="referred" [(ngModel)]="referred"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="6">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Email</ion-label>
+                      <ion-input formControlName="email" [(ngModel)]="user.email" (keyup)="verifiEmail()"></ion-input>
+                      <ion-icon [class]="emailClass" slot="end" [name]="emailToggleIcon"></ion-icon>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.email.errors?.required">
+                      Email is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Password</ion-label>
+                      <ion-input formControlName="password" type="password" [(ngModel)]="user.password"
+                        [type]="showPassword ? 'text': 'password'"></ion-input>
+                      <ion-icon class="icon-yellow" slot="end" [name]="passwordToggleIcon" (click)="togglePassword()">
+                      </ion-icon>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.password.errors?.required">
+                      Password is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Repeat password</ion-label>
+                      <ion-input formControlName="password2" type="password" [(ngModel)]="user.password2"
+                        [type]="showPassword2 ? 'text': 'password'" (keyup)="verifiPassword()"></ion-input>
+                      <ion-icon class="icon-yellow" slot="end" [name]="passwordToggleIcon2" (click)="togglePassword2()">
+                      </ion-icon>
+                      <ion-icon [class]="iconClass" slot="end" [name]="passwordToggleIcon3"></ion-icon>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.password2.errors?.required">
+                      Password is required.
+                    </span>
+                  </ion-col>
+                </ion-row>
+                <span class="title-section">PERSONAL INFORMATION</span> <br>
+                <hr class="separator">
+                <ion-row>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Name*</ion-label>
+                      <ion-input formControlName="name" type="text" [(ngModel)]="user.name" (keypress)="lettersOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.name.errors?.required">
+                      Name is required.
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.name.errors?.minlength">
+                      Name should be min 2 chars long.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Middle Name</ion-label>
+                      <ion-input formControlName="middlename" type="text" [(ngModel)]="user.middlename" (keypress)="lettersOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Last Name*</ion-label>
+                      <ion-input formControlName="lastname" type="text" [(ngModel)]="user.lastname" (keypress)="lettersOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.lastname.errors?.required">
+                      Last Name is required.
+                    </span>
+                  </ion-col>
+                  <ion-col  class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                      <ion-item style="padding-bottom: 5px" class="input-antonio">
+                        <ion-select  formControlName="document" #c (ionChange)="showEvent(c.value)" [(ngModel)]="user.document"
+                          placeholder="Type of document of identy *" class="select">
+                          <ion-select-option value="1">Valid id for usa</ion-select-option>
+                          <ion-select-option value="2">Foreign id</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ng-container *ngIf="show==1">
+                  <ion-row>
+                    <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                      <ion-item class="input-antonio" lines="none">
+                        <ion-label position="floating">Number ID</ion-label>
+                        <ion-input formControlName="numberid" type="text" [(ngModel)]="user.numberid"></ion-input>
+                      </ion-item>
+                      <span class="error-input error ion-padding"
+                        *ngIf="isSubmitted && errorControl.numberid.errors?.required">
+                        Number id is required.
+                      </span>
+                    </ion-col>
+                    <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                      <ion-item class="input-antonio input-file" lines="none">
+                        <ion-button fill="clear" (click)="f.click()">
+                          <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+                          <ion-label slot="end">Img ID</ion-label>
+                        </ion-button>
+                        <input class="ion-hide" #f type="file" (change)="loadImageFromDevice($event)" id="file-input-imgid02"
+                          accept="image/png, image/jpeg">
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                </ng-container>
+                <ng-container *ngIf="show==2">
+                  <ion-row>
+                    <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                      <ion-item class="input-antonio" lines="none">
+                        <ion-label position="floating">Number ID</ion-label>
+                        <ion-input formControlName="numberid2" type="text" [(ngModel)]="user.numberid2"></ion-input>
+                      </ion-item>
+                      <span class="error-input error ion-padding"
+                        *ngIf="isSubmitted && errorControl.numberid2.errors?.required">
+                        Number id is required.
+                      </span>
+                    </ion-col>
+                    <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                      <ion-item class="input-antonio input-file" lines="none">
+                        <ion-button  fill="clear" (click)="f.click()">
+                          <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+                          <ion-label slot="end">Img ID</ion-label>
+                        </ion-button>
+                        <input class="ion-hide" #f type="file" (change)="loadImageFromDevice()" id="file-input-imgid"
+                          accept="image/png, image/jpeg">
+                      </ion-item>
+                    </ion-col>
+                    <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                      <ion-item class="input-antonio" lines="none">
+                        <ion-label position="floating">Number security social</ion-label>
+                        <ion-input formControlName="numberss" type="text" [(ngModel)]="user.numberss"></ion-input>
+                      </ion-item>
+                      <span class="error-input error ion-padding"
+                        *ngIf="isSubmitted && errorControl.numberss.errors?.required">
+                        Number security social is required.
+                      </span>
+                    </ion-col>
+                    <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                      <ion-item class="input-antonio input-file" lines="none">
+                        <ion-button fill="clear" (click)="f.click()">
+                          <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+                          <ion-label slot="end">Img Security Social</ion-label>
+                        </ion-button>
+                        <input class="ion-hide" #f type="file" (change)="loadImageFromDevice()" id="file-input-imgss"
+                          accept="image/png, image/jpeg">
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                      <ion-item class="input-antonio" lines="none">
+                        <ion-label position="floating">Number tax</ion-label>
+                        <ion-input formControlName="numbertax" type="text" [(ngModel)]="user.numbertax"></ion-input>
+                      </ion-item>
+                      <span class="error-input error ion-padding"
+                        *ngIf="isSubmitted && errorControl.numbertax.errors?.required">
+                        Number tax is required.
+                      </span>
+                    </ion-col>
+                    <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                      <ion-item class="input-antonio input-file" lines="none">
+                        <ion-button fill="clear" (click)="f.click()">
+                          <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+                          <ion-label slot="end">Img Number Tax</ion-label>
+                        </ion-button>
+                        <input class="ion-hide" #f type="file" (change)="loadImageFromDevice()" id="file-input-imgtax"
+                          accept="image/png, image/jpeg">
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                </ng-container>
+                <ion-row>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="6">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Address*</ion-label>
+                      <ion-input formControlName="residenceAddress" type="text" [(ngModel)]="user.residence.address" (keypress)="addressOnlyValidation($event)">
+                      </ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.residenceAddress.errors?.required">
+                      Address is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">State*</ion-label>
+                      <ion-input formControlName="residenceState" type="text" [(ngModel)]="user.residence.state" (keypress)="lettersOnlyValidation($event)">
+                      </ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.residenceState.errors?.required">
+                      State is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">City*</ion-label>
+                      <ion-input formControlName="residenceCity" type="text" [(ngModel)]="user.residence.city" (keypress)="lettersOnlyValidation($event)">
+                      </ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.residenceCity.errors?.required">
+                      City is required.
+                    </span>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Zip Code*</ion-label>
+                      <ion-input formControlName="residenceZipCode" type="text" [(ngModel)]="user.residence.zipcode" (keypress)="numberOnlyValidation($event)">
+                      </ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Phone*</ion-label>
+                      <ion-input formControlName="phone" [(ngModel)]="user.phone" (keypress)="numberOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.phone.errors?.required">
+                      Phone is required.
+                    </span>
+                  </ion-col>
+                </ion-row>
+                <span class="title-section">EMERGENCY CONTACT</span> <br>
+                <hr class="separator">
+                <ion-row>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Fullname*</ion-label>
+                      <ion-input formControlName="contactFullName" type="text" [(ngModel)]="user.contact.fullname" (keypress)="lettersOnlyValidation($event)">
+                      </ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.contactFullName.errors?.required">
+                      Fullname is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Relationship*</ion-label>
+                      <ion-input formControlName="contactRelationship" type="text" [(ngModel)]="user.contact.relationship" (keypress)="lettersOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.contactRelationship.errors?.required">
+                      Relationship is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Address</ion-label>
+                      <ion-input formControlName="contactAddress" type="text" [(ngModel)]="user.contact.address" (keypress)="addressOnlyValidation($event)">
+                      </ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.contactAddress.errors?.required">
+                      Address is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Phone*</ion-label>
+                      <ion-input formControlName="contactPhone" type="text" [(ngModel)]="user.contact.phone" (keypress)="numberOnlyValidation($event)">
+                      </ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.contactPhone.errors?.required">
+                      Phone is required.
+                    </span>
+                  </ion-col>
+                </ion-row>
+                <span class="title-section">BANK ACCOUNT</span> <br>
+                <hr class="separator">
+                <ion-row>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Namenbank*</ion-label>
+                      <ion-input formControlName="bankaccountNamebank" type="text"
+                        [(ngModel)]="user.bankaccount.namebank" (keypress)="lettersOnlyValidation($event)" ></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.bankaccountNamebank.errors?.required">
+                      Namebank is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Routing*</ion-label>
+                      <ion-input formControlName="bankaccountRouting" type="text"
+                        [(ngModel)]="user.bankaccount.rounting" (keypress)="numberOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.bankaccountRouting.errors?.required">
+                      Routing is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Account*</ion-label>
+                      <ion-input formControlName="bankaccountAccount" type="text"
+                        [(ngModel)]="user.bankaccount.account" (keypress)="numberOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.bankaccountAccount.errors?.required">
+                      Account is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Percentage*</ion-label>
+                      <ion-input readonly formControlName="bankaccountPercentage" type="text"
+                        [(ngModel)]="user.bankaccount.percentage"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.bankaccountPercentage.errors?.required">
+                      Phone is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio input-file" lines="none">
+                      <ion-button fill="clear" (click)="f.click()">
+                        <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+                        <ion-label slot="end">Img Check</ion-label>
+                      </ion-button>
+                      <input class="ion-hide" #f type="file" (change)="loadImageFromDevice()" id="file-input-imgcheck"
+                        accept="image/png, image/jpeg">
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <span class="title-section">PREVIOUS EMPLOYMENT</span> <br>
+                <hr class="separator">
+                <ion-row>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Company*</ion-label>
+                      <ion-input formControlName="previousemploymentCompany" type="text"
+                        [(ngModel)]="user.previousemployment.company" (keypress)="addressOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentCompany.errors?.required">
+                      Company is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Phone</ion-label>
+                      <ion-input formControlName="previousemploymentPhone" type="text" [(ngModel)]="user.previousemployment.phone" (keypress)="numberOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentPhone.errors?.required">
+                      Company is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Address</ion-label>
+                      <ion-input formControlName="previousemploymentAddress" type="text" [(ngModel)]="user.previousemployment.address" (keypress)="addressOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentAddress.errors?.required">
+                      Company is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Supervisor</ion-label>
+                      <ion-input formControlName="previousemploymentSupervisor" type="text" [(ngModel)]="user.previousemployment.supervisor" (keypress)="lettersOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentSupervisor.errors?.required">
+                      Company is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Start Salary</ion-label>
+                      <ion-input formControlName="previousemploymentStarsalary" type="text" [(ngModel)]="user.previousemployment.starsalary" (keypress)="numberOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentStarsalary.errors?.required">
+                      Company is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">End Salary</ion-label>
+                      <ion-input formControlName="previousemploymentEndsalary" type="text" [(ngModel)]="user.previousemployment.endsalary" (keypress)="numberOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentEndsalary.errors?.required">
+                      Company is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="stacked">Start date</ion-label>
+                      <ion-input formControlName="previousemploymentStartDate" type="date" [(ngModel)]="user.previousemployment.startDate" (keypress)="numberOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentStartDate.errors?.required">
+                      Company is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="stacked">End Date</ion-label>
+                      <ion-input formControlName="previousemploymentEndDate" type="date" [(ngModel)]="user.previousemployment.endDate" (keypress)="numberOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentEndDate.errors?.required">
+                      Company is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Responsabilities*</ion-label>
+                      <ion-input formControlName="previousemploymentResponsabilities" type="text"
+                        [(ngModel)]="user.previousemployment.responsabilities" (keypress)="addressOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentResponsabilities.errors?.required">
+                      Responsabilities is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Reason leaving*</ion-label>
+                      <ion-input formControlName="previousemploymentReasonleaving" type="text"
+                        [(ngModel)]="user.previousemployment.reasonleaving" (keypress)="addressOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentReasonleaving.errors?.required">
+                      Reason leaving is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Number Contact of Supervisor</ion-label>
+                      <ion-input formControlName="previousemploymentContactsupervisor" type="text" [(ngModel)]="user.previousemployment.contactsupervisor" (keypress)="numberOnlyValidation($event)"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentContactsupervisor.errors?.required">
+                      Reason leaving is required.
+                    </span>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                    <ion-item>
+                      <ion-checkbox slot="start"></ion-checkbox>
+                      <ion-label color="primary" expand="block" (click)="setOpen(true)"><a>Terms and conditions</a>
+                      </ion-label>
+                      <ion-modal [isOpen]="isModalOpen">
+                        <ng-template>
+                          <ion-header>
+                            <ion-toolbar>
+                              <ion-title>Terms and conditions</ion-title>
+                              <ion-buttons slot="end">
+                                <ion-button (click)="setOpen(false)">Close</ion-button>
+                              </ion-buttons>
+                            </ion-toolbar>
+                          </ion-header>
+                          <ion-content class="ion-padding">
+                            <p>
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae
+                              ducimus quos
+                              reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo
+                              sit cum qui. Eaque,
+                              dicta.
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam fuga eum dolorum maiores
+                              eaque vitae nihil sequi! Adipisci natus quos consectetur delectus quo unde nulla labore,
+                              ab itaque suscipit ipsum obcaecati non fugit cupiditate possimus. Quidem nobis, obcaecati
+                              quia dolore sapiente a? Nemo doloremque animi sapiente beatae quidem tempora libero
+                              tempore eaque quo dolore ex quis porro ratione quibusdam, veritatis consectetur sit?
+                              Nesciunt pariatur perspiciatis nostrum quia odio eveniet soluta quos? Quo fugiat maiores
+                              ducimus quia dignissimos, voluptates ex vitae nostrum animi perferendis iusto autem unde
+                              vero eligendi est minus voluptatibus eius ab eaque officiis sint delectus asperiores
+                              sequi! Eos totam ipsa, vel odit et consequuntur maxime accusamus architecto a sint in,
+                              assumenda eligendi possimus deserunt? Quod laboriosam nisi, totam libero culpa minima
+                              similique maxime rerum. Voluptas magnam rerum nisi vero minima? Doloremque quis unde quam
+                              nihil maiores quibusdam exercitationem esse ab architecto provident a vero ipsa numquam
+                              illum, culpa ullam dolore amet facilis fugiat neque nam dignissimos explicabo illo?
+                              Dolore, assumenda aliquid? Qui eveniet facere odit fugit porro consequatur ex dolorem,
+                              minus commodi praesentium, provident delectus? Assumenda nobis obcaecati pariatur quam
+                              animi aut fugiat quod, ullam quas quis! Tempora minus, accusantium dolorum repellat id
+                              veniam in incidunt optio ea, magnam dolores harum consectetur dolor assumenda, porro quam
+                              ipsum sint deleniti aliquid repudiandae dicta? Natus, atque maiores eaque ratione ipsam
+                              eum harum sapiente est accusamus. Porro, explicabo eveniet laudantium quidem laborum amet
+                              vero rem at, temporibus voluptatibus blanditiis quisquam a animi rerum esse dolorum
+                              officiis eaque dignissimos aperiam corporis deserunt, reprehenderit ea quibusdam cumque.
+                              Non culpa totam possimus repellat aliquid, temporibus nostrum dolorum, ab numquam
+                              voluptatibus, quia modi magni exercitationem? Amet dolorem necessitatibus odio asperiores
+                              aspernatur officia hic, eos, excepturi rem impedit quidem tenetur illum possimus aliquid
+                              iste. Voluptatem aperiam deleniti odit. Veritatis nostrum molestias asperiores, ab
+                              pariatur rerum quas incidunt quae voluptatum praesentium ipsum consequatur, placeat animi
+                              quod dolores illo fugit. Eligendi illo amet modi sunt soluta libero, consequatur est? A ea
+                              nulla dolores? Sequi accusamus optio labore incidunt nemo doloremque asperiores deserunt
+                              maxime repellat odio, perspiciatis dolor iusto assumenda! Earum autem explicabo sunt quia
+                              adipisci! Atque provident dolorem, hic officiis tenetur, totam molestias quo nam illum
+                              delectus et ea incidunt nihil voluptas quibusdam recusandae aliquid vero exercitationem
+                              quidem nemo, ex similique ipsa ratione quos. Quos, officia. Laborum quasi quo voluptates
+                              excepturi voluptate. Sit quae sapiente quod ipsam. Soluta recusandae aliquid itaque iste
+                              quasi minima, cupiditate error exercitationem atque!
+                            </p>
+                          </ion-content>
+                        </ng-template>
+                      </ion-modal>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="ion-justify-content-center">
+                  <ion-col class="ion-align-self-center ion-text-center ion-margin-top" size="12" size-md="6" size-lg="6">
+                    <ion-button type="submit" class="btn-antonio" expand="full" fill="solid">Register now</ion-button>
+                  </ion-col>
+                </ion-row>
+
+              </form>
+              <ion-col size="12" size-md="6" size-lg="12">
+                <p id="register">ALREADY HAVE AN ACCOUNT ? <a href="/auth/login">LOGIN</a> </p>
+              </ion-col>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,339 @@
+
+@media screen and (min-width:1180px) { 
+    ion-content {
+        --ion-background-color: #111111;
+        --color: #E3F2FD;
+    }
+    
+    .title-block {
+        color: #eeeeee;
+        font-family: Lato !important;
+        font-size: 42px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: 42px;
+        text-transform: uppercase;
+        span {
+            color: var(--ion-color-primary);
+          }
+          
+    }
+    
+    .description-block {
+        color: #999999;
+        font-family: Lato !important;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px;
+        span {
+            color: var(--ion-color-primary);
+          }
+    }
+    
+    .title-block {
+        color: #ffffff;
+        font-family: Lato !important;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 32px;
+        span {
+            color: var(--ion-color-primary);
+          }
+    }
+    
+    .content-block {
+        color: #999999;
+        font-family: Lato !important;
+        text-align: justify;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px;
+        span {
+            color: var(--ion-color-primary);
+          }
+    }
+    
+    .colBlock{
+        position: absolute;
+        left: 420px;
+        height: 460px !important;
+        width: 680px;  
+    }
+    
+    
+    .colImg{ 
+        height: 460px;
+        margin-right: 700px;
+    }
+    
+    
+    .img{
+        height: 450px;
+        float: left;
+        width: 400px;
+    }
+    
+    
+    
+    
+    
+    }
+    
+    //                       -------------------------telefono----------------
+    
+    
+    
+    @media screen and (max-width:600px) {
+    
+        ion-content {
+            --ion-background-color: #111111;
+            --color: #E3F2FD;
+        }
+        
+        .title-block {
+            color: #eeeeee;
+            font-family: Lato !important;
+            font-size: 42px;
+            font-style: normal;
+            font-weight: 800;
+            line-height: 42px;
+            text-transform: uppercase;
+            span {
+                color: var(--ion-color-primary);
+              }
+        }
+        
+        .description-block {
+            color: #999999;
+            font-family: Lato !important;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 28px;
+            span {
+                color: var(--ion-color-primary);
+              }
+        }
+        
+        .title-block {
+            color: #ffffff;
+            font-family: Lato !important;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 32px;
+            span {
+                color: var(--ion-color-primary);
+              }
+        }
+        
+        .content-block {
+            color: #999999;
+            font-family: Lato !important;
+            text-align: justify;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 28px;
+            span {
+                color: var(--ion-color-primary);
+              }
+        }
+    
+    
+        .colImg{
+          height: 410px;
+          width: 304.66px;
+        }
+    
+        .colBlock{
+            position: absolute;
+            top: 590px;
+            width: 304.66px; 
+        }
+    
+       .img{
+        height: 399px;
+        width: 300px;
+       }
+    
+       .row2{
+        width: 304.66px;
+       }
+    
+    }
+
+
+    //--------------------------------tablet------------------------------------
+
+
+    
+@media screen and (min-width:700px)and (max-width:1024px) {
+    ion-content {
+        --ion-background-color: #111111;
+        --color: #E3F2FD;
+    }
+    
+    .title-block {
+        color: #eeeeee;
+        font-family: Lato !important;
+        font-size: 42px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: 42px;
+        text-transform: uppercase;
+        span {
+            color: var(--ion-color-primary);
+          }
+          
+    }
+    
+    .description-block {
+        color: #999999;
+        font-family: Lato !important;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px;
+        span {
+            color: var(--ion-color-primary);
+          }
+    }
+    
+    .title-block {
+        color: #ffffff;
+        font-family: Lato !important;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 32px;
+        span {
+            color: var(--ion-color-primary);
+          }
+    }
+    
+    .content-block {
+        color: #999999;
+        font-family: Lato !important;
+        text-align: justify;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px;
+        span {
+            color: var(--ion-color-primary);
+          }
+    }
+    
+    .colBlock{
+        position: absolute;
+        left: 250px;
+        width: 420px;
+        height: 470px !important;
+    }
+    
+    
+    .colImg{  
+        height: 460px;
+        margin-right: 410px;
+    }
+    
+    
+    .img{
+    
+        height: 450px;
+        float: left;
+        width: 400px;
+    }
+ }
+    
+ 
+ //--------------------------------minimize----------------------------------------
+
+ @media  only screen  
+and (min-width:1025px)
+and (max-width:1180px) {
+
+    ion-content {
+        --ion-background-color: #111111;
+        --color: #E3F2FD;
+    }
+    
+    .title-block {
+        color: #eeeeee;
+        font-family: Lato !important;
+        font-size: 42px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: 42px;
+        text-transform: uppercase;
+        span {
+            color: var(--ion-color-primary);
+          }
+          
+    }
+    
+    .description-block {
+        color: #999999;
+        font-family: Lato !important;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px;
+        span {
+            color: var(--ion-color-primary);
+          }
+    }
+    
+    .title-block {
+        color: #ffffff;
+        font-family: Lato !important;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 32px;
+        span {
+            color: var(--ion-color-primary);
+          }
+    }
+    
+    .content-block {
+        color: #999999;
+        font-family: Lato !important;
+        text-align: justify;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px;
+        span {
+            color: var(--ion-color-primary);
+          }
+    }
+    
+    .colBlock{
+        position: absolute;
+        left: 380px;
+        width: 450px;
+        height: 460px !important;
+    }
+    
+    
+    .colImg{  
+        height: 460px;
+        margin-right: 460px;
+    }
+    
+    
+    .img{
+    
+        height: 450px;
+        float: left;
+        width: 400px;
+    }
+
+
+
+}

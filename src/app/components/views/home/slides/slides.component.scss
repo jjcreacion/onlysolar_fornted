@@ -1,0 +1,38 @@
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.item-slides {
+  padding-top: 0;
+  margin-top: 0px;
+}
+
+.img-slides {
+  opacity: 0.4;
+}
+
+/* Centered text */
+.centered {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  p {
+    color: #eeeeee;
+    font-family: Lato !important;
+    font-size: 56px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 32px;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+    span {
+      color: var(--ion-color-primary);
+    }
+  }
+}

@@ -1,0 +1,157 @@
+<ion-content [fullscreen]="true">
+  <app-header></app-header>
+  <app-navbar></app-navbar>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="8">
+        <ion-row>
+          <ion-col class="column-container" size="2">
+            <div class="card card-01 ion-text-center">
+              <ion-icon class="ion-icon" slot="icon-only" name="home-outline"></ion-icon>
+              <h6>DASHBOARD</h6>
+            </div>
+          </ion-col>
+          <ion-col class="column-container" size="2">
+            <div class="card card-02 ion-text-center">
+              <ion-icon class="ion-icon" slot="icon-only" name="bar-chart-outline"></ion-icon>
+              <h6>PIPELINES</h6>
+            </div>
+          </ion-col>
+          <ion-col class="column-container" size="2">
+            <div class="card card-03 ion-text-center">
+              <ion-icon class="ion-icon" slot="icon-only" name="earth-outline"></ion-icon>
+              <h6>WORKLINE</h6>
+            </div>
+          </ion-col>
+          <ion-col class="column-container" size="2">
+            <div class="card card-04 ion-text-center">
+              <ion-icon class="ion-icon" slot="icon-only" name="documents-outline"></ion-icon>
+              <h6>REPORTS</h6>
+            </div>
+          </ion-col>
+          <ion-col class="column-container" size="2">
+            <div class="card card-05 ion-text-center">
+              <ion-icon class="ion-icon" slot="icon-only" name="settings-outline"></ion-icon>
+              <h6>SETTINGS</h6>
+            </div>
+          </ion-col>
+          <ion-col class="column-container" size="2">
+            <div class="card card-06 ion-text-center">
+              <ion-icon class="ion-icon" slot="icon-only" name="log-out-outline"></ion-icon>
+              <h6>LOGOUT</h6>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="section-row">
+          <ion-col class="section" size="12">
+            <h1>MY WORKLINE</h1>
+            <div>
+              <p class="section-description">Below is your referrals by levels</p>
+              <ion-accordion-group>
+                <ion-accordion value="first">
+                  <ion-item slot="header" color="medium">
+                    <ion-label>First Level</ion-label>
+                  </ion-item>
+                  <div class="ion-padding" slot="content">
+                    <ul *ngIf="level01">
+                      <li *ngFor="let item of level01">{{ item.fullname }}</li>
+                    </ul>
+                    <p *ngIf="level01?.length == 0">not data found</p>
+                  </div>
+                </ion-accordion>
+                <ion-accordion value="second">
+                  <ion-item slot="header" color="medium">
+                    <ion-label>Second Level</ion-label>
+                  </ion-item>
+                  <div class="ion-padding" slot="content">
+                    <ul *ngIf="level02">
+                      <li *ngFor="let item of level02">{{ item.fullname }}</li>
+                    </ul>
+                    <p *ngIf="level02?.length == 0">not data found</p>
+                  </div>
+                </ion-accordion>
+                <ion-accordion value="third">
+                  <ion-item slot="header" color="medium">
+                    <ion-label>Third Level</ion-label>
+                  </ion-item>
+                  <div class="ion-padding" slot="content">
+                    <ul *ngIf="level03">
+                      <li *ngFor="let item of level03">{{ item.fullname }}</li>
+                    </ul>
+                    <p *ngIf="level03?.length == 0">not data found</p>
+                  </div>
+                </ion-accordion>
+                <ion-accordion value="fourth">
+                  <ion-item slot="header" color="medium">
+                    <ion-label>Fourth Level</ion-label>
+                  </ion-item>
+                  <div class="ion-padding" slot="content">
+                    <ul *ngIf="level04">
+                      <li *ngFor="let item of level04">{{ item.fullname }}</li>
+                    </ul>
+                    <p *ngIf="level04?.length == 0">not data found</p>
+                  </div>
+                </ion-accordion>
+                <ion-accordion value="fifth">
+                  <ion-item slot="header" color="medium">
+                    <ion-label>Fifth Level</ion-label>
+                  </ion-item>
+                  <div class="ion-padding" slot="content">
+                    <ul *ngIf="level05">
+                      <li *ngFor="let item of level05">{{ item.fullname }}</li>
+                    </ul>
+                    <p *ngIf="level05?.length == 0">not data found</p>
+                  </div>
+                </ion-accordion>
+              </ion-accordion-group>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="4">
+        <ion-row>
+          <ion-col class="ion-no-padding card-content" size="12">
+            <p class="name-text">Welcome, {{this.user.name}} {{this.user.lastname}}</p>
+            <p class="description-code">https://www.onlysolargc.com/auth/register?code={{this.user.referredcode}}</p>
+            <ion-button class="button-copy" (click)="copyCode()" fill="outline">
+              Copy me
+              <ion-icon slot="end" name="copy-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-col class="ion-no-padding card-content" size="12">
+            <p class="name-text">Ads number #01</p>
+            <p class="description-text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, odio iure recusandae minus laudantium mollitia neque ex beatae excepturi voluptate ut voluptas minima obcaecati maxime soluta deserunt? Quasi neque at consequuntur fugit autem totam iste, laboriosam qui eligendi soluta incidunt impedit quis ipsum voluptas quisquam nam ad. Vel, consequatur nesciunt.
+            </p>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-col class="ion-no-padding card-content" size="12">
+            <p class="name-text">Ads number #02</p>
+            <p class="description-text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, odio iure recusandae minus laudantium mollitia neque ex beatae excepturi voluptate ut voluptas minima obcaecati maxime soluta deserunt? Quasi neque at consequuntur fugit autem totam iste, laboriosam qui eligendi soluta incidunt impedit quis ipsum voluptas quisquam nam ad. Vel, consequatur nesciunt.
+            </p>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-col class="ion-no-padding card-content" size="12">
+            <p class="name-text">Ads number #03</p>
+            <p class="description-text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, odio iure recusandae minus laudantium mollitia neque ex beatae excepturi voluptate ut voluptas minima obcaecati maxime soluta deserunt? Quasi neque at consequuntur fugit autem totam iste, laboriosam qui eligendi soluta incidunt impedit quis ipsum voluptas quisquam nam ad. Vel, consequatur nesciunt.
+            </p>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-col class="ion-no-padding card-content" size="12">
+            <p class="name-text">Ads number #04</p>
+            <p class="description-text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, odio iure recusandae minus laudantium mollitia neque ex beatae excepturi voluptate ut voluptas minima obcaecati maxime soluta deserunt? Quasi neque at consequuntur fugit autem totam iste, laboriosam qui eligendi soluta incidunt impedit quis ipsum voluptas quisquam nam ad. Vel, consequatur nesciunt.
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

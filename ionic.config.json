@@ -1,0 +1,7 @@
+{
+  "name": "onlysolar",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

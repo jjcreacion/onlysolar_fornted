@@ -1,0 +1,47 @@
+<ion-content [fullscreen]="true">
+  <app-header></app-header>
+  <app-navbar></app-navbar>
+  <ion-grid class="ion-no-margin ion-no-padding">
+    <ion-row class="ion-no-margin ion-no-padding">
+      <ion-col class="ion-align-self-center" size="12">
+        <ion-grid fixed>
+          <ion-row class="ion-justify-content-center">
+            <ion-col class="ion-align-self-center ion-text-center" size="6">
+              <h1 id="title">MEMBER <span class="enfasis">LOGIN</span></h1>
+              <h3 id="description">SEND, RECEIVE AND SECURELY STORE YOUR COINS IN YOUR WALLET</h3>
+              <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
+              <ion-row class="ion-justify-content-center">
+                  <ion-col class="ion-margin-top" size="10">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Username</ion-label>
+                      <ion-input formControlName="username" [(ngModel)]="username"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding" *ngIf="isSubmitted && errorControl.username.errors?.required">
+                      Username is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top" size="10">
+                    <ion-item class="input-antonio" lines="none">
+                      <ion-label position="floating">Password</ion-label>
+                      <ion-input formControlName="password" type="password" [(ngModel)]="password"></ion-input>
+                    </ion-item>
+                    <span class="error-input error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
+                      Password is required.
+                    </span>
+                  </ion-col>
+                  <ion-col class="ion-margin-top" size="10">
+                    <ion-button type="submit" class="btn-antonio" expand="full" fill="solid">Login</ion-button>
+                  </ion-col>
+                </ion-row>
+              </form>
+              <ion-col size="12">
+                <p id="register">DON'T HAVE AN ACCOUNT ? <a href="/auth/register">REGISTER NOW</a> </p>
+                <p id="register"><a href="/auth/forgot-password">FORGOT PASSWORD?</a> </p>
+              </ion-col>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

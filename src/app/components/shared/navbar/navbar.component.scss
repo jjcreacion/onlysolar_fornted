@@ -1,0 +1,22 @@
+.navbar {
+    background: #000000;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.item-navbar {
+    color: #eeeeee;
+    font-family: OpenSans !important;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+a:hover
+{
+    text-decoration: none;
+    color: var(--ion-color-primary);
+}
