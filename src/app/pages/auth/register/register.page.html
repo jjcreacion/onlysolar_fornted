@@ -64,7 +64,7 @@
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Name*</ion-label>
-                      <ion-input formControlName="name" type="text" [(ngModel)]="user.name" (keypress)="lettersOnlyValidation($event)"></ion-input>
+                      <ion-input formControlName="name" type="text" [(ngModel)]="user.name" (keypress)="validation($event, patternLett)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.name.errors?.required">
@@ -72,33 +72,53 @@
                     </span>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.name.errors?.minlength">
-                      Name should be min 2 chars long.
+                      Min 3 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.name.errors?.pattern">
+                      Single Letters
                     </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Middle Name</ion-label>
-                      <ion-input formControlName="middlename" type="text" [(ngModel)]="user.middlename" (keypress)="lettersOnlyValidation($event)"></ion-input>
+                      <ion-input formControlName="middlename" type="text" [(ngModel)]="user.middlename" (keypress)="validation($event, patternLett)"></ion-input>
                     </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.middlename.errors?.pattern">
+                      Single Letters
+                    </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Last Name*</ion-label>
-                      <ion-input formControlName="lastname" type="text" [(ngModel)]="user.lastname" (keypress)="lettersOnlyValidation($event)"></ion-input>
+                      <ion-input formControlName="lastname" type="text" [(ngModel)]="user.lastname" (keypress)="validation($event, patternLett)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.lastname.errors?.required">
                       Last Name is required.
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.lastname.errors?.minlength">
+                      Min 3 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.lastname.errors?.pattern">
+                      Single Letters
                     </span>
                   </ion-col>
                   <ion-col  class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                       <ion-item style="padding-bottom: 5px" class="input-antonio">
                         <ion-select  formControlName="document" #c (ionChange)="showEvent(c.value)" [(ngModel)]="user.document"
                           placeholder="Type of document of identy *" class="select">
-                          <ion-select-option value="1">Valid id for usa</ion-select-option>
-                          <ion-select-option value="2">Foreign id</ion-select-option>
+                          <ion-select-option value="1">ID U.S.A.</ion-select-option>
+                          <ion-select-option value="2">FOREIGN ID</ion-select-option>
                         </ion-select>
                       </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.document.errors?.pattern">
+                      Document is required
+                    </span>
                   </ion-col>
                 </ion-row>
                 <ng-container *ngIf="show==1">
@@ -110,18 +130,44 @@
                       </ion-item>
                       <span class="error-input error ion-padding"
                         *ngIf="isSubmitted && errorControl.numberid.errors?.required">
-                        Number id is required.
+                        ID Number is required.
                       </span>
                     </ion-col>
                     <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                       <ion-item class="input-antonio input-file" lines="none">
                         <ion-button fill="clear" (click)="f.click()">
                           <ion-icon lazy="true" slot="start" name="image"></ion-icon>
-                          <ion-label slot="end">Img ID</ion-label>
+                          <ion-label slot="end">ID Attached</ion-label>
                         </ion-button>
-                        <input class="ion-hide" #f type="file" (change)="loadImageFromDevice($event)" id="file-input-imgid02"
+                        <input class="ion-hide" #f type="file" (change)="loadImageFromDevice($event,1)" id="file-input-imgid02"
                           accept="image/png, image/jpeg">
                       </ion-item>
+                      <span class="error-input error ion-padding" *ngIf="idfile">
+                        {{idfile.name}}
+                      </span>
+                    </ion-col>
+                    <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                      <ion-item class="input-antonio" lines="none">
+                        <ion-label position="floating">Social Security Number</ion-label>
+                        <ion-input formControlName="numberss" type="text" [(ngModel)]="user.numberss"></ion-input>
+                      </ion-item>
+                      <span class="error-input error ion-padding"
+                        *ngIf="isSubmitted && errorControl.numberss.errors?.required">
+                        Social Security Number is required.
+                      </span>
+                    </ion-col>
+                    <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
+                      <ion-item class="input-antonio input-file" lines="none">
+                        <ion-button fill="clear" (click)="s.click()">
+                          <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+                          <ion-label slot="end">Social Security Attached</ion-label>
+                        </ion-button>
+                        <input class="ion-hide" #s type="file" (change)="loadImageFromDevice($event,2)" id="file-input-imgss"
+                          accept="image/png, image/jpeg">
+                      </ion-item>
+                      <span class="error-input error ion-padding" *ngIf="ssfile">
+                        {{ssfile.name}}
+                      </span>
                     </ion-col>
                   </ion-row>
                 </ng-container>
@@ -141,53 +187,37 @@
                       <ion-item class="input-antonio input-file" lines="none">
                         <ion-button  fill="clear" (click)="f.click()">
                           <ion-icon lazy="true" slot="start" name="image"></ion-icon>
-                          <ion-label slot="end">Img ID</ion-label>
+                          <ion-label slot="end">ID Attached</ion-label>
                         </ion-button>
-                        <input class="ion-hide" #f type="file" (change)="loadImageFromDevice()" id="file-input-imgid"
+                        <input class="ion-hide" #f type="file" (change)="loadImageFromDevice($event,1)" id="file-input-imgid"
                           accept="image/png, image/jpeg">
                       </ion-item>
-                    </ion-col>
-                    <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
-                      <ion-item class="input-antonio" lines="none">
-                        <ion-label position="floating">Number security social</ion-label>
-                        <ion-input formControlName="numberss" type="text" [(ngModel)]="user.numberss"></ion-input>
-                      </ion-item>
-                      <span class="error-input error ion-padding"
-                        *ngIf="isSubmitted && errorControl.numberss.errors?.required">
-                        Number security social is required.
+                      <span class="error-input error ion-padding" *ngIf="idfile">
+                        {{idfile.name}}
                       </span>
                     </ion-col>
                     <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
-                      <ion-item class="input-antonio input-file" lines="none">
-                        <ion-button fill="clear" (click)="f.click()">
-                          <ion-icon lazy="true" slot="start" name="image"></ion-icon>
-                          <ion-label slot="end">Img Security Social</ion-label>
-                        </ion-button>
-                        <input class="ion-hide" #f type="file" (change)="loadImageFromDevice()" id="file-input-imgss"
-                          accept="image/png, image/jpeg">
-                      </ion-item>
-                    </ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                       <ion-item class="input-antonio" lines="none">
-                        <ion-label position="floating">Number tax</ion-label>
+                        <ion-label position="floating">ITIN Number</ion-label>
                         <ion-input formControlName="numbertax" type="text" [(ngModel)]="user.numbertax"></ion-input>
                       </ion-item>
                       <span class="error-input error ion-padding"
                         *ngIf="isSubmitted && errorControl.numbertax.errors?.required">
-                        Number tax is required.
+                         ITIN Number is required.
                       </span>
                     </ion-col>
                     <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                       <ion-item class="input-antonio input-file" lines="none">
-                        <ion-button fill="clear" (click)="f.click()">
+                        <ion-button fill="clear" (click)="i.click()">
                           <ion-icon lazy="true" slot="start" name="image"></ion-icon>
-                          <ion-label slot="end">Img Number Tax</ion-label>
+                          <ion-label slot="end">ITIN NUMBER ATTACHED</ion-label>
                         </ion-button>
-                        <input class="ion-hide" #f type="file" (change)="loadImageFromDevice()" id="file-input-imgtax"
+                        <input class="ion-hide" #i type="file" (change)="loadImageFromDevice($event,3)" id="file-input-imgtax"
                           accept="image/png, image/jpeg">
                       </ion-item>
+                      <span class="error-input error ion-padding" *ngIf="taxfile">
+                        {{taxfile.name}}
+                      </span>
                     </ion-col>
                   </ion-row>
                 </ng-container>
@@ -195,34 +225,54 @@
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="6">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Address*</ion-label>
-                      <ion-input formControlName="residenceAddress" type="text" [(ngModel)]="user.residence.address" (keypress)="addressOnlyValidation($event)">
+                      <ion-input formControlName="residenceAddress" type="text" [(ngModel)]="user.residence.address" (keypress)="validation($event, patternNumLett)">
                       </ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.residenceAddress.errors?.required">
                       Address is required.
                     </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.residenceAddress.errors?.minlength">
+                      Min 5 chars long.<br>
+                    </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">State*</ion-label>
-                      <ion-input formControlName="residenceState" type="text" [(ngModel)]="user.residence.state" (keypress)="lettersOnlyValidation($event)">
+                      <ion-input formControlName="residenceState" type="text" [(ngModel)]="user.residence.state" (keypress)="validation($event, patternLett)">
                       </ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.residenceState.errors?.required">
                       State is required.
                     </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.residenceState.errors?.minlength">
+                      Min 4 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.residenceState.errors?.pattern">
+                      Single Letters
+                    </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">City*</ion-label>
-                      <ion-input formControlName="residenceCity" type="text" [(ngModel)]="user.residence.city" (keypress)="lettersOnlyValidation($event)">
+                      <ion-input formControlName="residenceCity" type="text" [(ngModel)]="user.residence.city" (keypress)="validation($event, patternLett)">
                       </ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.residenceCity.errors?.required">
                       City is required.
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.residenceCity.errors?.minlength">
+                      Min 4 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.residenceCity.errors?.pattern">
+                      Single Letters
                     </span>
                   </ion-col>
                 </ion-row>
@@ -230,18 +280,38 @@
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Zip Code*</ion-label>
-                      <ion-input formControlName="residenceZipCode" type="text" [(ngModel)]="user.residence.zipcode" (keypress)="numberOnlyValidation($event)">
+                      <ion-input formControlName="residenceZipCode" type="text" [(ngModel)]="user.residence.zipcode" (keypress)="validation($event, patternNum)">
                       </ion-input>
                     </ion-item>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.residenceZipCode.errors?.required">
+                      Zip Code is required.
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.residenceZipCode.errors?.minlength">
+                      Min 4 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.residenceZipCode.errors?.pattern">
+                      Single Numbers
+                    </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Phone*</ion-label>
-                      <ion-input formControlName="phone" [(ngModel)]="user.phone" (keypress)="numberOnlyValidation($event)"></ion-input>
+                      <ion-input formControlName="phone" [(ngModel)]="user.phone" (keypress)="validation($event, patternNum)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.phone.errors?.required">
                       Phone is required.
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.phone.errors?.minlength">
+                      Min 10 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.phone.errors?.pattern">
+                      Single Numbers
                     </span>
                   </ion-col>
                 </ion-row>
@@ -251,44 +321,72 @@
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Fullname*</ion-label>
-                      <ion-input formControlName="contactFullName" type="text" [(ngModel)]="user.contact.fullname" (keypress)="lettersOnlyValidation($event)">
+                      <ion-input formControlName="contactFullName" type="text" [(ngModel)]="user.contact.fullname" (keypress)="validation($event, patternLett)">
                       </ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.contactFullName.errors?.required">
                       Fullname is required.
                     </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.contactFullName.errors?.minlength">
+                      Min 5 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.contactFullName.errors?.pattern">
+                      Single Letters
+                    </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Relationship*</ion-label>
-                      <ion-input formControlName="contactRelationship" type="text" [(ngModel)]="user.contact.relationship" (keypress)="lettersOnlyValidation($event)"></ion-input>
+                      <ion-input formControlName="contactRelationship" type="text" [(ngModel)]="user.contact.relationship" (keypress)="validation($event, patternLett)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.contactRelationship.errors?.required">
                       Relationship is required.
                     </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.contactRelationship.errors?.minlength">
+                      Min 3 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.contactRelationship.errors?.pattern">
+                      Single Letters
+                    </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Address</ion-label>
-                      <ion-input formControlName="contactAddress" type="text" [(ngModel)]="user.contact.address" (keypress)="addressOnlyValidation($event)">
+                      <ion-input formControlName="contactAddress" type="text" [(ngModel)]="user.contact.address" (keypress)="validation($event, patternNumLett)">
                       </ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
-                      *ngIf="isSubmitted && errorControl.contactAddress.errors?.required">
-                      Address is required.
+                      *ngIf="isSubmitted && errorControl.contactAddress.errors?.minlength">
+                      Min 5 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.contactAddress.errors?.pattern">
+                      Single Letters and Numbers
                     </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Phone*</ion-label>
-                      <ion-input formControlName="contactPhone" type="text" [(ngModel)]="user.contact.phone" (keypress)="numberOnlyValidation($event)">
+                      <ion-input formControlName="contactPhone" type="text" [(ngModel)]="user.contact.phone" (keypress)="validation($event, patternNum)">
                       </ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.contactPhone.errors?.required">
                       Phone is required.
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.contactPhone.errors?.minlength">
+                      Min 10 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.contactPhone.errors?.pattern">
+                      Single Numbers
                     </span>
                   </ion-col>
                 </ion-row>
@@ -299,33 +397,57 @@
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Namenbank*</ion-label>
                       <ion-input formControlName="bankaccountNamebank" type="text"
-                        [(ngModel)]="user.bankaccount.namebank" (keypress)="lettersOnlyValidation($event)" ></ion-input>
+                        [(ngModel)]="user.bankaccount.namebank" (keypress)="validation($event, patternLett)" ></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.bankaccountNamebank.errors?.required">
                       Namebank is required.
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.bankaccountNamebank.errors?.minlength">
+                      Min 5 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.bankaccountNamebank.errors?.pattern">
+                      Single Letters
                     </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Routing*</ion-label>
                       <ion-input formControlName="bankaccountRouting" type="text"
-                        [(ngModel)]="user.bankaccount.rounting" (keypress)="numberOnlyValidation($event)"></ion-input>
+                        [(ngModel)]="user.bankaccount.rounting" (keypress)="validation($event, patternNum)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.bankaccountRouting.errors?.required">
                       Routing is required.
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.bankaccountRouting.errors?.minlength">
+                      Min 9 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.bankaccountRouting.errors?.pattern">
+                      Single Numbers
                     </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Account*</ion-label>
                       <ion-input formControlName="bankaccountAccount" type="text"
-                        [(ngModel)]="user.bankaccount.account" (keypress)="numberOnlyValidation($event)"></ion-input>
+                        [(ngModel)]="user.bankaccount.account" (keypress)="validation($event, patternNum)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.bankaccountAccount.errors?.required">
                       Account is required.
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.bankaccountAccount.errors?.minlength">
+                      Min 9 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.bankaccountAccount.errors?.pattern">
+                      Single Numbers
                     </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
@@ -334,20 +456,19 @@
                       <ion-input readonly formControlName="bankaccountPercentage" type="text"
                         [(ngModel)]="user.bankaccount.percentage"></ion-input>
                     </ion-item>
-                    <span class="error-input error ion-padding"
-                      *ngIf="isSubmitted && errorControl.bankaccountPercentage.errors?.required">
-                      Phone is required.
-                    </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio input-file" lines="none">
-                      <ion-button fill="clear" (click)="f.click()">
+                      <ion-button fill="clear" (click)="fc.click()">
                         <ion-icon lazy="true" slot="start" name="image"></ion-icon>
                         <ion-label slot="end">Img Check</ion-label>
                       </ion-button>
-                      <input class="ion-hide" #f type="file" (change)="loadImageFromDevice()" id="file-input-imgcheck"
+                      <input class="ion-hide" #fc type="file" (change)="loadImageFromDevice($event,4)" id="file-input-imgcheck"
                         accept="image/png, image/jpeg">
                     </ion-item>
+                    <span class="error-input error ion-padding" *ngIf="checkfile">
+                      {{checkfile.name}}
+                    </span>
                   </ion-col>
                 </ion-row>
                 <span class="title-section">PREVIOUS EMPLOYMENT</span> <br>
@@ -357,114 +478,130 @@
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Company*</ion-label>
                       <ion-input formControlName="previousemploymentCompany" type="text"
-                        [(ngModel)]="user.previousemployment.company" (keypress)="addressOnlyValidation($event)"></ion-input>
+                        [(ngModel)]="user.previousemployment.company" (keypress)="validation($event, patternNumLett)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.previousemploymentCompany.errors?.required">
                       Company is required.
                     </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentCompany.errors?.minlength">
+                      Min 5 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentCompany.errors?.pattern">
+                      Single Numbers and Letters
+                    </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Phone</ion-label>
-                      <ion-input formControlName="previousemploymentPhone" type="text" [(ngModel)]="user.previousemployment.phone" (keypress)="numberOnlyValidation($event)"></ion-input>
+                      <ion-input formControlName="previousemploymentPhone" type="text" [(ngModel)]="user.previousemployment.phone" (keypress)="validation($event, patternNum)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
-                      *ngIf="isSubmitted && errorControl.previousemploymentPhone.errors?.required">
-                      Company is required.
+                      *ngIf="isSubmitted && errorControl.previousemploymentPhone.errors?.pattern">
+                      Single Numbers
                     </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Address</ion-label>
-                      <ion-input formControlName="previousemploymentAddress" type="text" [(ngModel)]="user.previousemployment.address" (keypress)="addressOnlyValidation($event)"></ion-input>
+                      <ion-input formControlName="previousemploymentAddress" type="text" [(ngModel)]="user.previousemployment.address" (keypress)="validation($event, patternNumLett)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
-                      *ngIf="isSubmitted && errorControl.previousemploymentAddress.errors?.required">
-                      Company is required.
+                      *ngIf="isSubmitted && errorControl.previousemploymentAddress.errors?.pattern">
+                      Single Letters and Numbers
                     </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Supervisor</ion-label>
-                      <ion-input formControlName="previousemploymentSupervisor" type="text" [(ngModel)]="user.previousemployment.supervisor" (keypress)="lettersOnlyValidation($event)"></ion-input>
+                      <ion-input formControlName="previousemploymentSupervisor" type="text" [(ngModel)]="user.previousemployment.supervisor" (keypress)="validation($event, patternLett)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
-                      *ngIf="isSubmitted && errorControl.previousemploymentSupervisor.errors?.required">
-                      Company is required.
+                      *ngIf="isSubmitted && errorControl.previousemploymentSupervisor.errors?.pattern">
+                      Single Letters
                     </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Start Salary</ion-label>
-                      <ion-input formControlName="previousemploymentStarsalary" type="text" [(ngModel)]="user.previousemployment.starsalary" (keypress)="numberOnlyValidation($event)"></ion-input>
+                      <ion-input formControlName="previousemploymentStarsalary" type="text" [(ngModel)]="user.previousemployment.starsalary" (keypress)="validation($event, patternNum)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
-                      *ngIf="isSubmitted && errorControl.previousemploymentStarsalary.errors?.required">
-                      Company is required.
+                      *ngIf="isSubmitted && errorControl.previousemploymentStarsalary.errors?.pattern">
+                      Single Numbers
                     </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">End Salary</ion-label>
-                      <ion-input formControlName="previousemploymentEndsalary" type="text" [(ngModel)]="user.previousemployment.endsalary" (keypress)="numberOnlyValidation($event)"></ion-input>
+                      <ion-input formControlName="previousemploymentEndsalary" type="text" [(ngModel)]="user.previousemployment.endsalary" (keypress)="validation($event, patternNum)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
-                      *ngIf="isSubmitted && errorControl.previousemploymentEndsalary.errors?.required">
-                      Company is required.
+                      *ngIf="isSubmitted && errorControl.previousemploymentEndsalary.errors?.pattern">
+                      Single Numbers
                     </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="stacked">Start date</ion-label>
-                      <ion-input formControlName="previousemploymentStartDate" type="date" [(ngModel)]="user.previousemployment.startDate" (keypress)="numberOnlyValidation($event)"></ion-input>
+                      <ion-input formControlName="previousemploymentStartDate" type="date" [(ngModel)]="user.previousemployment.startDate" (keypress)="validation($event, patternNum)"></ion-input>
                     </ion-item>
-                    <span class="error-input error ion-padding"
-                      *ngIf="isSubmitted && errorControl.previousemploymentStartDate.errors?.required">
-                      Company is required.
-                    </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="stacked">End Date</ion-label>
-                      <ion-input formControlName="previousemploymentEndDate" type="date" [(ngModel)]="user.previousemployment.endDate" (keypress)="numberOnlyValidation($event)"></ion-input>
+                      <ion-input formControlName="previousemploymentEndDate" type="date" [(ngModel)]="user.previousemployment.endDate" (keypress)="validation($event, patternNum)"></ion-input>
                     </ion-item>
-                    <span class="error-input error ion-padding"
-                      *ngIf="isSubmitted && errorControl.previousemploymentEndDate.errors?.required">
-                      Company is required.
-                    </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Responsabilities*</ion-label>
                       <ion-input formControlName="previousemploymentResponsabilities" type="text"
-                        [(ngModel)]="user.previousemployment.responsabilities" (keypress)="addressOnlyValidation($event)"></ion-input>
+                        [(ngModel)]="user.previousemployment.responsabilities" (keypress)="validation($event, patternNumLett)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.previousemploymentResponsabilities.errors?.required">
                       Responsabilities is required.
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentResponsabilities.errors?.minlength">
+                      Min 5 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentResponsabilities.errors?.pattern">
+                      Single Numbers and Letters
                     </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Reason leaving*</ion-label>
                       <ion-input formControlName="previousemploymentReasonleaving" type="text"
-                        [(ngModel)]="user.previousemployment.reasonleaving" (keypress)="addressOnlyValidation($event)"></ion-input>
+                        [(ngModel)]="user.previousemployment.reasonleaving" (keypress)="validation($event, patternNumLett)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
                       *ngIf="isSubmitted && errorControl.previousemploymentReasonleaving.errors?.required">
                       Reason leaving is required.
                     </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentReasonleaving.errors?.minlength">
+                      Min 5 chars long.<br>
+                    </span>
+                    <span class="error-input error ion-padding"
+                      *ngIf="isSubmitted && errorControl.previousemploymentReasonleaving.errors?.pattern">
+                      Single Numbers and Letters
+                    </span>
                   </ion-col>
                   <ion-col class="ion-margin-top input-column" size="12" size-md="6" size-lg="3">
                     <ion-item class="input-antonio" lines="none">
                       <ion-label position="floating">Number Contact of Supervisor</ion-label>
-                      <ion-input formControlName="previousemploymentContactsupervisor" type="text" [(ngModel)]="user.previousemployment.contactsupervisor" (keypress)="numberOnlyValidation($event)"></ion-input>
+                      <ion-input formControlName="previousemploymentContactsupervisor" type="text" [(ngModel)]="user.previousemployment.contactsupervisor" (keypress)="validation($event, patternNum)"></ion-input>
                     </ion-item>
                     <span class="error-input error ion-padding"
-                      *ngIf="isSubmitted && errorControl.previousemploymentContactsupervisor.errors?.required">
-                      Reason leaving is required.
-                    </span>
+                      *ngIf="isSubmitted && errorControl.previousemploymentContactsupervisor.errors?.pattern">
+                      Single Numbers
+                    </span>  
                   </ion-col>
                 </ion-row>
                 <ion-row>
