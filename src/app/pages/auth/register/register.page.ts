@@ -23,6 +23,7 @@ export class RegisterPage implements OnInit {
   showPassword2 = false;
   passwordToggleIcon2 = 'eye';
   passwordToggleIcon3 = 'close-circle-outline';
+  accepTerm : true;
 
   user: IUser = {
     email: null,
@@ -76,7 +77,6 @@ export class RegisterPage implements OnInit {
     }
   };
 
-
   isModalOpen = false;
   referred: string;
 
@@ -115,11 +115,10 @@ export class RegisterPage implements OnInit {
       password: [null, [Validators.required,Validators.pattern(this.patternPassword)]],
       password2: [null, [Validators.required,Validators.pattern(this.patternPassword)]],
       document: [null, [Validators.required]],
-      lastname: [null, [Validators.required,Validators.minLength(3),Validators.pattern(this.patternLett)]],
-      numberid: [null],
-      numberid2: [null],
+      lastname: [null, [Validators.required, Validators.minLength(3),Validators.pattern(this.patternLett)]],
+      numberid: [null, [Validators.required, Validators.minLength(9), Validators.pattern(this.patternNum)]],
       numberss: [null],
-      numbertax: [null],
+      numbertax: [null, [this.user.document == 2 ? Validators.required : Validators.nullValidator , Validators.minLength(9), Validators.pattern(this.patternNum)]],
       phone: [null, [Validators.required, Validators.minLength(10), Validators.pattern(this.patternNum)]],
       residenceAddress: [null, [Validators.required,Validators.minLength(5), Validators.pattern(this.patternNumLett)]],
       residenceState: [null, [Validators.required,Validators.minLength(4), Validators.pattern(this.patternLett)]],
@@ -132,19 +131,21 @@ export class RegisterPage implements OnInit {
       bankaccountNamebank: [null, [Validators.required,Validators.minLength(5),Validators.pattern(this.patternLett)]],
       bankaccountRouting: [null, [Validators.required,Validators.minLength(9),Validators.pattern(this.patternNum)]],
       bankaccountAccount: [null, [Validators.required,Validators.minLength(9),Validators.pattern(this.patternNum)]],
-      bankaccountPercentage: [null, [Validators.required]],
+      bankaccountPercentage: [null],
       previousemploymentCompany: [null, [Validators.required, Validators.minLength(3), Validators.pattern(this.patternNumLett)]],
       previousemploymentResponsabilities: [null, [Validators.required,Validators.minLength(5), Validators.pattern(this.patternNumLett)]],
       previousemploymentReasonleaving: [null, [Validators.required,Validators.minLength(5), Validators.pattern(this.patternNumLett)]],
       previousemploymentAddress: [null, [Validators.pattern(this.patternNumLett)]],
       previousemploymentSupervisor: [null, [Validators.pattern(this.patternLett)]],
+      previousemploymentStartDate: [null],
+      previousemploymentEndDate: [null],
       previousemploymentPhone: [null, [Validators.pattern(this.patternNum)]],
       previousemploymentStarsalary: [null, [Validators.pattern(this.patternNum)]],
       previousemploymentEndsalary: [null, [Validators.pattern(this.patternNum)]],
       previousemploymentContactsupervisor: [null,[Validators.pattern(this.patternNum)]],
     })
   }
-
+ 
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
@@ -220,11 +221,11 @@ export class RegisterPage implements OnInit {
       this.emailToggleIcon = 'checkmark-circle-outline';
       this.emailClass = 'icon-check';
     }
-
   }
 
   showEvent(value) {
     this.show = value;
+    console.log(this.ionicForm.value.numbertax);
   }
 
   async registerUser() {
@@ -279,26 +280,6 @@ export class RegisterPage implements OnInit {
     await toast.present();
   }
 
-  numberOnlyValidation(event: any) {
-    const pattern = /[0-9]/;
-    let inputChar = String.fromCharCode(event.charCode);
-
-    if (!pattern.test(inputChar)) {
-      // invalid character, prevent input
-      event.preventDefault();
-    }
-  }
-
-  addressOnlyValidation(event: any) {
-    const pattern = /[0-9A-Za-z ÑñáéíóúÁÉÍÓÚ]/;
-    let inputChar = String.fromCharCode(event.charCode);
-
-    if (!pattern.test(inputChar)) {
-      // invalid character, prevent input
-      event.preventDefault();
-    }
-  }
-  
   validation(event:any, pattern){
   let inputChar = String.fromCharCode(event.charCode);
 

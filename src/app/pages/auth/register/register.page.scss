@@ -26,6 +26,12 @@ ion-content {
     text-transform: uppercase; 
 }
 
+.mesjpassword {
+    color: #ffffff;
+    font-family: Lato !important;
+    font-size: 12px;
+}
+
 #register {
     color: #999999;
     font-family: Lato !important;
@@ -38,7 +44,11 @@ ion-content {
 
 .error-input {
     color: red;
-    margin-top: 4px;
+    margin-top: 0.1px;
+}
+.img-input {
+    color: rgb(252, 250, 250);
+    margin-top: 0.1px;
 }
 
 .separator {

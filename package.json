@@ -23,6 +23,7 @@
     "@ionic/cordova-builders": "^7.0.0",
     "@ionic/storage-angular": "^3.0.6",
     "ionicons": "^6.0.3",
+    "ngx-toastr": "^15.2.2",
     "rxjs": "~6.6.0",
     "swiper": "^8.4.2",
     "tslib": "^2.2.0",

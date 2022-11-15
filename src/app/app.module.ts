@@ -14,8 +14,15 @@ import { HttpConfigInterceptor } from './interceptors/http-config.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ComponentsModule,SwiperModule,HttpClientModule,
-    IonicStorageModule.forRoot()],
+  imports: [
+    BrowserModule, 
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    ComponentsModule,
+    SwiperModule,
+    HttpClientModule,
+    IonicStorageModule.forRoot(),
+  ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
